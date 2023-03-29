@@ -44,9 +44,6 @@ i = range(1,n,length=n)
 #sigmas = -2*sqrt(n)/(n-1) .* i .+ sqrt(m) .+ sqrt(n)*(n+1)/(n-1)
 sigmas = range(sqrt(m)+sqrt(n),sqrt(m)-sqrt(n),length=n)
 
-# ╔═╡ ef33c055-6ad4-4977-9efc-59847aba285d
-sqrt(sum(sigmas.^(-2)))/sqrt(m)
-
 # ╔═╡ 8437c059-3d74-4107-ba46-7f60133b9aa1
 ((sqrt(m)+sqrt(n)), (sqrt(m)-sqrt(n)))
 
@@ -57,7 +54,7 @@ _,S,_ = svd(A)
 sum(S.^(-2))
 
 # ╔═╡ 154f8e46-6ec0-466b-ab2e-ec04300347b0
-plot(i,[S.^-2,sigmas.^-2])
+plot(i,[S,sigmas])
 
 # ╔═╡ 2ba9c591-079d-464d-bc5e-885807ff2ea6
 y = A*x + z
@@ -68,8 +65,11 @@ x_hat = A \ y
 # ╔═╡ cb827238-1d59-4a30-a048-9779dae2bd35
 norm(x_hat - x)
 
+# ╔═╡ ef33c055-6ad4-4977-9efc-59847aba285d
+sqrt(sum(sigmas.^(-2)))/sqrt(m)
+
 # ╔═╡ 45ab7e8e-94d4-42d6-9f41-c28bf406c62d
-(5/(sqrt(m)+sqrt(n)), 5/(sqrt(m)-sqrt(n)))
+(1/(sqrt(m)+sqrt(n)+4), 1/(sqrt(m)-sqrt(n)-4))
 
 # ╔═╡ 2a501b9b-7415-4689-a937-8281a5970c32
 t = range(0,2n,length=40)
@@ -82,6 +82,9 @@ sqrt(chisqinvcdf(n,0.5))
 
 # ╔═╡ 91d150b3-096d-4079-b78a-f7b357860acc
 .99^2
+
+# ╔═╡ ce516603-c9eb-43a9-bcb5-c4f6c59d5ddf
+sqrt(n/(m-n))/sqrt(m)
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1085,5 +1088,6 @@ version = "1.4.1+0"
 # ╠═270ca7f8-e1c8-45aa-98be-817262f0fbe7
 # ╠═c2bb40f7-1637-4378-8fc0-cb2ed646b3d3
 # ╠═91d150b3-096d-4079-b78a-f7b357860acc
+# ╠═ce516603-c9eb-43a9-bcb5-c4f6c59d5ddf
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
