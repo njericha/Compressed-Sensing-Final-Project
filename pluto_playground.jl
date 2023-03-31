@@ -26,13 +26,13 @@ using Elliptic # get the functions E and K
 using QuadGK
 
 # ╔═╡ 8fedb55d-1671-469b-b9d0-97075b82b526
-n_samples = 1000
+n_samples = 5
 
 # ╔═╡ 17f7abd2-4c79-4a74-814a-e5e82f0f989b
 string(3)
 
 # ╔═╡ 3c0c9574-c9a7-4a89-a0b2-6e5365dea568
-scaling = 1
+scaling = 10
 
 # ╔═╡ c08dc38e-abe6-47ba-aceb-3ca5c0808b09
 m = 100 * scaling
@@ -53,7 +53,7 @@ x = randn(n)
 norm(z[1:n])
 
 # ╔═╡ 58db3625-d322-41b5-bc68-32bac0bc9393
-A = randn((m,n))
+A = randn((m,n)) ./ sqrt(n)
 
 # ╔═╡ c04176d0-a50e-4b5b-8484-7e7fdb5a09e0
 _,S,_ = svd(A);
@@ -75,7 +75,8 @@ i = range(1,n,length=n)
 
 # ╔═╡ 9677c3c7-3263-44f1-88cb-5a967694b396
 #sigmas = -2*sqrt(n)/(n-1) .* i .+ sqrt(m) .+ sqrt(n)*(n+1)/(n-1)
-sigmas = range(sqrt(m)+sqrt(n),sqrt(m)-sqrt(n),length=n)
+#sigmas = range(sqrt(m)+sqrt(n),sqrt(m)-sqrt(n),length=n)
+sigmas = range(sqrt(m/n)+1,sqrt(m/n)-1,length=n)
 
 # ╔═╡ 154f8e46-6ec0-466b-ab2e-ec04300347b0
 plot(i,[S,sigmas])
@@ -90,13 +91,13 @@ sqrt(sum(sigmas.^(-2)))/sqrt(m) # Actual singular value sum
 sqrt(n/(m-n))/sqrt(m) # Current best estimate
 
 # ╔═╡ a409698e-3099-4047-b7bf-9a3ec3334a7d
-Ss = hcat([svd(randn((m,n))).S for _ ∈ 1:n_samples]...)
+Ss = hcat([svd(randn((m,n))./sqrt(n)).S for _ ∈ 1:n_samples]...)
 
 # ╔═╡ 953dafa9-b57a-4c73-b013-56c542b1c1b4
 begin
 	λ  = m / n
-	λ₊ = sqrt(m)+sqrt(n) # (1+sqrt(λ))^2 #
-	λ₋ = sqrt(m)-sqrt(n) # (1-sqrt(λ))^2 #
+	λ₊ = (1+sqrt(λ)) #sqrt(m)+sqrt(n) # 
+	λ₋ = -(1-sqrt(λ)) #sqrt(m)-sqrt(n) # 
 end
 
 # ╔═╡ 3ac14c12-fbd2-46b4-8524-a19df8b5a34c
@@ -159,7 +160,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "3e94bee8cba5f19b984cb36f066d59632e02b8d4"
+project_hash = "082c645212c898d472f717b74b0ca033ed933d2a"
 
 [[deps.AbstractFFTs]]
 deps = ["ChainRulesCore", "LinearAlgebra"]
