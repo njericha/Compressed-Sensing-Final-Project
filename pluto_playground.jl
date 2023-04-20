@@ -26,16 +26,16 @@ using Elliptic # get the functions E and K
 using QuadGK
 
 # ╔═╡ 8fedb55d-1671-469b-b9d0-97075b82b526
-n_samples = 5
+n_samples = 10
 
 # ╔═╡ 17f7abd2-4c79-4a74-814a-e5e82f0f989b
 string(3)
 
 # ╔═╡ 3c0c9574-c9a7-4a89-a0b2-6e5365dea568
-scaling = 10
+scaling = 1
 
 # ╔═╡ c08dc38e-abe6-47ba-aceb-3ca5c0808b09
-m = 100 * scaling
+m = 120 * scaling
 
 # ╔═╡ 71d31b02-6e27-4629-951d-4ab2f803e64b
 z = randn(m)/sqrt(m)
@@ -114,7 +114,7 @@ end
 
 # ╔═╡ df9e7b76-34d7-4d5d-bc29-a784c52c0de3
 begin
-	histogram(vec(Ss),normalize=:pdf,bins=50)
+	histogram(vec(Ss),normalize=:pdf,bins=n÷1)
 	plot!(l,ν)
 end
 
