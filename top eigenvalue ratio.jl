@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.26
 
 using Markdown
 using InteractiveUtils
@@ -16,14 +16,17 @@ using Einsum
 # ╔═╡ 1015d3d9-c753-4d78-8ea1-cba11fe26544
 using Plots
 
+# ╔═╡ 4a39503c-4175-44c7-9eb2-bb5be3187135
+@einsum l[k] := A[i,k]*A[i,k]
+
 # ╔═╡ 979a9230-f503-11ed-0efa-7b2841006c87
 n,m=10,15
 
+# ╔═╡ a1dbd531-9856-4938-ab90-9a8b19c276fc
+norm(Astary)/sqrt(n) #Frobenius
+
 # ╔═╡ 1f88cf1a-2b10-40b2-befa-2a75ffcf6a50
 A = randn(n,m)
-
-# ╔═╡ 4a39503c-4175-44c7-9eb2-bb5be3187135
-@einsum l[k] := A[i,k]*A[i,k]
 
 # ╔═╡ deea0735-c4ed-4539-98e9-1c8dd49ef3ca
 a(k)=A[:,k]
@@ -39,6 +42,9 @@ begin
 	y=abs.(randn(m))
 	y=y/(b'y)
 end
+
+# ╔═╡ 39ef4c86-e35a-4b2a-b705-79d6b202f922
+(y'l- maximum(y.*l))/(norm(Astary)/sqrt(n))
 
 # ╔═╡ 6cb8ee86-3fd2-4d9a-a1db-42c667ccf69a
 λ1_estimate = y'l
@@ -60,12 +66,6 @@ b'y
 
 # ╔═╡ 61172676-a3e5-47db-95b8-b50f05b00643
 @einsum Astary[i,j] := AA[i,j,k]*y[k]
-
-# ╔═╡ 39ef4c86-e35a-4b2a-b705-79d6b202f922
-(y'l- maximum(y.*l))/(norm(Astary)/sqrt(n))
-
-# ╔═╡ a1dbd531-9856-4938-ab90-9a8b19c276fc
-norm(Astary)/sqrt(n) #Frobenius
 
 # ╔═╡ 3e3118e5-dbff-4705-a02a-82f79991a031
 λ = reverse(eigvals(Astary)) #want decreasing order
@@ -101,7 +101,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "c22b3d4f0a593ae3b3011baf95ca532e059675ab"
+project_hash = "91376b212114c029bfcc0c5ecfed5bc7849807db"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
